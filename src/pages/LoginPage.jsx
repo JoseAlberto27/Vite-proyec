@@ -45,7 +45,7 @@ export function LoginPage() {
         <div className="auth-card__icon">
           <LockKeyhole size={22} />
         </div>
-        <h1>Iniciar sesion</h1>
+        <h1>INICIAR SESION</h1>
         <p>Accede al dashboard con la cuenta demo o conecta tu API real.</p>
 
         <form className="form" onSubmit={handleSubmit}>
