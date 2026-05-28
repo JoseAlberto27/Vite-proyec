@@ -1426,12 +1426,26 @@ svg {
 
 .message-composer {
   gap: 10px;
+  flex-wrap: wrap;
   padding: 16px;
   border-top: 1px solid var(--border);
   background: rgba(11, 15, 25, 0.42);
 }
 
+.message-composer__error {
+  flex: 1 0 100%;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(248, 113, 113, 0.24);
+  border-radius: 16px;
+  background: rgba(127, 29, 29, 0.22);
+  color: #fecaca;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
 .message-composer input {
+  flex: 1;
   min-height: 52px;
   padding: 0 18px;
   border-radius: var(--radius-pill);

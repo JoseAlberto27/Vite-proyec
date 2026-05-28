@@ -194,6 +194,7 @@ export function ChatPage() {
   const [activeChatId, setActiveChatId] = useState('');
   const [messages, setMessages] = useState([]);
   const [messageDraft, setMessageDraft] = useState('');
+  const [chatError, setChatError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const messagesEndRef = useRef(null);
 
@@ -245,12 +246,18 @@ export function ChatPage() {
       return;
     }
 
-    const chatId = await createOrOpenPrivateChat(auth.user, recipient);
-    setMessages([]);
-    setActiveChatId(chatId);
+    try {
+      setChatError('');
+      const chatId = await createOrOpenPrivateChat(auth.user, recipient);
+      setMessages([]);
+      setActiveChatId(chatId);
+    } catch (openError) {
+      setChatError(getFirebaseErrorMessage(openError));
+    }
   };
 
   const handleSelectChat = (chatId) => {
+    setChatError('');
     setMessages([]);
     setActiveChatId(chatId);
   };
@@ -262,8 +269,13 @@ export function ChatPage() {
       return;
     }
 
-    await sendMessage(activeChatId, auth.user, messageDraft);
-    setMessageDraft('');
+    try {
+      setChatError('');
+      await sendMessage(activeChatId, auth.user, messageDraft);
+      setMessageDraft('');
+    } catch (sendError) {
+      setChatError(getFirebaseErrorMessage(sendError));
+    }
   };
 
   if (!auth.isAuthReady) {
@@ -416,6 +428,7 @@ export function ChatPage() {
             </div>
 
             <form className="message-composer" onSubmit={handleSendMessage}>
+              {chatError ? <p className="message-composer__error">{chatError}</p> : null}
               <input
                 onChange={(event) => setMessageDraft(event.target.value)}
                 placeholder={`Message ${activeRecipient?.displayName || 'user'}`}

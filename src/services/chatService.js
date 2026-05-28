@@ -1,5 +1,4 @@
 import {
-  child,
   get,
   limitToLast,
   onChildAdded,
@@ -152,13 +151,14 @@ export async function sendMessage(chatId, user, text) {
     return;
   }
 
-  const messageRef = push(child(ref(realtimeDatabase), `messages/${chatId}`));
+  const now = Date.now();
+  const messageRef = push(ref(realtimeDatabase, `messages/${chatId}`));
   const messagePayload = {
     uid: user.uid,
     displayName: user.displayName || user.email,
     photoURL: user.photoURL || '',
     text: trimmedText,
-    createdAt: Date.now()
+    createdAt: now
   };
 
   await set(messageRef, messagePayload);
@@ -166,8 +166,8 @@ export async function sendMessage(chatId, user, text) {
     lastMessage: {
       text: trimmedText,
       uid: user.uid,
-      createdAt: Date.now()
+      createdAt: now
     },
-    updatedAt: Date.now()
+    updatedAt: now
   });
 }
