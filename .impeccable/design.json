@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-27T00:00:00-04:00",
+  "title": "Design System: Vite Proyec",
+  "extensions": {
+    "colorMeta": {
+      "midnight": {
+        "role": "neutral",
+        "displayName": "Midnight Canvas",
+        "canonical": "#0b0f19",
+        "tonalRamp": ["oklch(12% 0.03 260)", "oklch(18% 0.035 260)", "oklch(26% 0.04 260)", "oklch(36% 0.04 260)", "oklch(50% 0.035 260)", "oklch(66% 0.028 260)", "oklch(82% 0.018 260)", "oklch(94% 0.01 260)"]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "#3b82f6",
+        "tonalRamp": ["oklch(18% 0.07 260)", "oklch(28% 0.1 260)", "oklch(40% 0.14 260)", "oklch(54% 0.18 260)", "oklch(66% 0.17 260)", "oklch(76% 0.13 260)", "oklch(86% 0.08 260)", "oklch(95% 0.03 260)"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Cinematic Display",
+        "purpose": "Hero and final CTA only."
+      },
+      "body": {
+        "displayName": "Premium Product Body",
+        "purpose": "Readable landing copy on dark surfaces."
+      }
+    },
+    "shadows": [
+      {
+        "name": "soft-depth",
+        "value": "0 24px 80px rgba(2, 6, 23, 0.36)",
+        "purpose": "Main panel and mockup elevation."
+      },
+      {
+        "name": "signal-glow",
+        "value": "0 20px 80px rgba(59, 130, 246, 0.3)",
+        "purpose": "Hero device, CTA and important blue surfaces."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Premium reveal and hover motion."
+      },
+      {
+        "name": "message-rise",
+        "value": "700ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Chat bubble entrance."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tablet",
+        "value": "940px"
+      },
+      {
+        "name": "mobile",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary CTA",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main Open Chat action for the landing.",
+      "html": "<button class=\"ds-primary-cta\">Open Chat</button>",
+      "css": ".ds-primary-cta { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border: 1px solid rgba(96, 165, 250, 0.58); border-radius: 999px; background: linear-gradient(135deg, #3b82f6, #60a5fa); color: #f8fafc; font: 850 15px Inter, system-ui, sans-serif; box-shadow: 0 18px 60px rgba(59, 130, 246, 0.32); transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-primary-cta:hover { transform: translateY(-2px) scale(1.01); } .ds-primary-cta:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.24); }"
+    },
+    {
+      "name": "Floating Nav",
+      "kind": "nav",
+      "refersTo": "landing-nav",
+      "description": "Sticky glass navigation for the premium landing.",
+      "html": "<nav class=\"ds-floating-nav\"><span>Vite Proyec</span><a href=\"#\">Preview</a><button>Open Chat</button></nav>",
+      "css": ".ds-floating-nav { display: flex; align-items: center; gap: 18px; min-height: 64px; padding: 0 10px 0 18px; border: 1px solid rgba(203, 213, 225, 0.16); border-radius: 999px; background: rgba(11, 15, 25, 0.72); color: #f8fafc; font: 800 14px Inter, system-ui, sans-serif; box-shadow: 0 18px 60px rgba(2, 6, 23, 0.34); backdrop-filter: blur(18px); } .ds-floating-nav a { color: #cbd5e1; text-decoration: none; } .ds-floating-nav button { min-height: 42px; padding: 0 18px; border: 1px solid rgba(96, 165, 250, 0.38); border-radius: 999px; background: rgba(59, 130, 246, 0.16); color: #f8fafc; font: inherit; }"
+    },
+    {
+      "name": "Chat Bubble",
+      "kind": "custom",
+      "refersTo": "chat-bubble",
+      "description": "Premium message bubble used inside preview mockups.",
+      "html": "<div class=\"ds-chat-bubble\">Shipping the preview tonight.</div>",
+      "css": ".ds-chat-bubble { width: fit-content; max-width: 280px; padding: 13px 16px; border-radius: 22px; background: linear-gradient(135deg, #3b82f6, #60a5fa); color: #f8fafc; font: 500 15px/1.45 Inter, system-ui, sans-serif; box-shadow: 0 18px 52px rgba(59, 130, 246, 0.24); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Midnight Signal Room",
+    "overview": "The landing should feel like entering a premium product preview: dark, cinematic, focused and technically refined.",
+    "keyCharacteristics": [
+      "Dark cinematic canvas with controlled blue signal light.",
+      "Large confident typography with generous spacing.",
+      "Glassmorphism only where it communicates depth.",
+      "Chat previews, floating notes and timeline sections that explain the product.",
+      "Motion that feels smooth, expensive and restrained."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Restraint Rule",
+        "body": "Blue glow is for focus, CTAs, chat energy and motion cues. It must not flood every section.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Gamer Neon Rule",
+        "body": "Dark does not mean neon. Avoid aggressive saturation, electric outlines and noisy effects.",
+        "section": "colors"
+      },
+      {
+        "name": "The Hero Owns Scale Rule",
+        "body": "Massive type belongs to the hero and cinematic CTA. Product details use quieter hierarchy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Expensive Blur Rule",
+        "body": "Blur must be rare, large and soft. Tiny noisy blur looks cheap.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do build on Midnight Canvas, Slate Depth and Deep Navy.",
+      "Do use Signal Blue for CTAs, glow, focus and message energy.",
+      "Do make the hero cinematic and the rest of the page calm.",
+      "Do keep mobile spacing intentional and touch targets large.",
+      "Do respect reduced motion."
+    ],
+    "donts": [
+      "Don't make it look like dashboard corporativo frio.",
+      "Don't use SaaS generico lleno de degradados morados.",
+      "Don't use UI vieja estilo Bootstrap.",
+      "Don't create interfaz recargada y pesada.",
+      "Don't create diseno escolar o de plantilla basica.",
+      "Don't drift into diseno gamer exagerado.",
+      "Don't create app oscura con demasiados efectos neon.",
+      "Don't ship a landing tipica sin identidad visual.",
+      "Don't use square basic cards.",
+      "Don't use gradient text."
+    ]
+  }
+}
