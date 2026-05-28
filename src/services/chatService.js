@@ -15,10 +15,18 @@ import {
 import { realtimeDatabase } from './firebase.js';
 
 export function getChatId(firstUserId, secondUserId) {
+  if (!firstUserId || !secondUserId || firstUserId === 'undefined' || secondUserId === 'undefined') {
+    throw new Error('Cannot create chat because one user profile is missing its uid.');
+  }
+
   return [firstUserId, secondUserId].sort().join('__');
 }
 
 export async function ensureUserProfile(user, displayName) {
+  if (!user?.uid) {
+    throw new Error('Cannot save profile without a Firebase uid.');
+  }
+
   const userRef = ref(realtimeDatabase, `users/${user.uid}`);
   const snapshot = await get(userRef);
   const fallbackName = user.displayName || displayName || user.email?.split('@')[0] || 'New user';
@@ -53,9 +61,12 @@ export function subscribeToUsers(currentUserId, callback) {
     const users = [];
 
     snapshot.forEach((childSnapshot) => {
-      const user = childSnapshot.val();
+      const user = {
+        ...childSnapshot.val(),
+        uid: childSnapshot.val()?.uid || childSnapshot.key
+      };
 
-      if (user.uid !== currentUserId) {
+      if (user.uid && user.uid !== 'undefined' && user.uid !== currentUserId) {
         users.push(user);
       }
     });
@@ -75,7 +86,9 @@ export function subscribeToUserChats(userId, callback) {
 
     const chatIds = Object.keys(snapshot.val());
     const chatSnapshots = await Promise.all(
-      chatIds.map(async (chatId) => {
+      chatIds
+        .filter((chatId) => chatId && !chatId.includes('undefined'))
+        .map(async (chatId) => {
         const chatSnapshot = await get(ref(realtimeDatabase, `chats/${chatId}`));
         return chatSnapshot.exists() ? { id: chatId, ...chatSnapshot.val() } : null;
       })
@@ -90,6 +103,10 @@ export function subscribeToUserChats(userId, callback) {
 }
 
 export async function createOrOpenPrivateChat(currentUser, recipient) {
+  if (!currentUser?.uid || !recipient?.uid || recipient.uid === 'undefined') {
+    throw new Error('This user profile is incomplete. Refresh the chat or ask the user to sign in again.');
+  }
+
   const chatId = getChatId(currentUser.uid, recipient.uid);
   const chatRef = ref(realtimeDatabase, `chats/${chatId}`);
   const snapshot = await get(chatRef);

@@ -39,6 +39,14 @@ function getFirebaseErrorMessage(error) {
     return 'Google sign-in popup was closed before finishing.';
   }
 
+  if (code.includes('auth/unauthorized-domain')) {
+    return 'This domain is not authorized in Firebase Authentication settings.';
+  }
+
+  if (code.includes('permission-denied') || error?.message?.includes('Permission denied')) {
+    return 'Firebase rejected this action. Check your Realtime Database rules.';
+  }
+
   return error?.message || 'Something went wrong. Please try again.';
 }
 
@@ -144,7 +152,7 @@ function AuthPanel({ auth }) {
               minLength={6}
               name="password"
               onChange={handleChange}
-              placeholder="••••••••"
+              placeholder="********"
               required
               type="password"
               value={formData.password}

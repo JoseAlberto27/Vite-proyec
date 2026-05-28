@@ -1,9 +1,10 @@
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  getRedirectResult,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signInWithPopup,
+  signInWithRedirect,
   signOut,
   updateProfile
 } from 'firebase/auth';
@@ -19,6 +20,16 @@ export function useFirebaseAuth() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    getRedirectResult(firebaseAuth)
+      .then(async (result) => {
+        if (result?.user) {
+          await ensureUserProfile(result.user);
+        }
+      })
+      .catch((error) => {
+        console.error('Google redirect sign-in failed:', error);
+      });
+
     return onAuthStateChanged(firebaseAuth, async (authUser) => {
       setUser(authUser);
       setIsAuthReady(true);
@@ -56,7 +67,7 @@ export function useFirebaseAuth() {
         setIsSubmitting(true);
 
         try {
-          await signInWithPopup(firebaseAuth, googleProvider);
+          await signInWithRedirect(firebaseAuth, googleProvider);
         } finally {
           setIsSubmitting(false);
         }
